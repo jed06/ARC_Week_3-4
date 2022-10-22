@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
-
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
+ * This class is where the bulk of the robot shoul
+ * d be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
@@ -30,15 +30,18 @@ private final DriveTrain dt;
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final MagicDrive magicDrive;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    joystick2 = new Joystick(Constants.USBOrder.One);
     joystick1 = new Joystick(0);
+    joystick2 = new Joystick(1);
+
     // Configure the button bindings
     configureButtonBindings();
     dt = new DriveTrain();
-  driveToLine = new DriveToLine(dt, 0.2);
+    driveToLine = new DriveToLine(dt, 0.2);
+    magicDrive = new MagicDrive(dt);
 
   }
   public static Joystick getJoy1() {
@@ -62,9 +65,10 @@ private final DriveTrain dt;
    *
    * @return the command to run in autonomous
    */
+  
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return driveToLine;
+    return magicDrive;
   }
-  
+
 }
